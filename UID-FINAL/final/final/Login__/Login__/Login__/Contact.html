@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact Us - Team Members</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    color: #fefefe;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1100px;
+    width: 100%;
+    justify-content: center;
+  }
+  .box {
+    background: #1e2f3a;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    width: 220px; /* Increased width */
+    padding: 30px 20px 50px; /* Increased bottom padding */
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+  .box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+  }
+  .name {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 10px; /* Reduced margin */
+    letter-spacing: 0.04em;
+  }
+  .info {
+    margin-top: 15px; /* Space above info */
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #a1d6e2;
+    display: none;
+  }
+  .info a {
+    color: #77c9d4;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .info a:hover {
+    text-decoration: underline;
+  }
+  button.know-more-btn {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e2f3a;
+    background: #77c9d4;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    user-select: none;
+  }
+  button.know-more-btn:hover {
+    background: #4ca1a1;
+    color: #e0f7fa;
+  }
+  @media (max-width: 580px) {
+    .box {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+
+ #bgVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}
+
+</style>
+</head>
+<body>
+  <video autoplay muted loop id="bgVideo">
+      <source src="mystery-green-landscape.3840x2160.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+   </video>
+<h1 style="text-align:center; margin-top:0;">Welcome to the Contact Page</h1>
+  <div class="container">
+    <div class="box" data-roll="51" data-email="51@gmail.com">
+      <div class="name">Rahul</div>
+      <div class="info"></div>
+      <button class="know-more-btn">Know More</button>
+    </div>
+    <div class="box" data-roll="03" data-email="03@gmail.com">
+      <div class="name">Mukesh</div>
+      <div class="info"></div>
+      <button class="know-more-btn">Know More</button>
+    </div>
+    <div class="box" data-roll="41" data-email="41@gmail.com">
+      <div class="name">Jeevan</div>
+      <div class="info"></div>
+      <button class="know-more-btn">Know More</button>
+    </div>
+    <div class="box" data-roll="29" data-email="29@gmail.com">
+      <div class="name">Ram Teja</div>
+      <div class="info"></div>
+      <button class="know-more-btn">Know More</button>
+    </div>
+    <div class="box" data-roll="54" data-email="54@gmail.com">
+      <div class="name">Riyan</div>
+      <div class="info"></div>
+      <button class="know-more-btn">Know More</button>
+    </div>
+  </div>
+<script>
+  document.querySelectorAll('.know-more-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const box = button.closest('.box');
+      const infoDiv = box.querySelector('.info');
+      if (infoDiv.style.display === 'block') {
+        // Hide info
+        infoDiv.style.display = 'none';
+        infoDiv.innerHTML = '';
+        button.textContent = 'Know More';
+      } else {
+        // Show info
+        const roll = box.getAttribute('data-roll');
+        const email = box.getAttribute('data-email');
+        infoDiv.innerHTML = `<p>Roll Number: <strong>${roll}</strong></p><p>Contact: <a href="mailto:${email}">${email}</a></p>`;
+        infoDiv.style.display = 'block';
+        button.textContent = 'Hide Info';
+      }
+    });
+  });
+</script>
+</body>
+</html>

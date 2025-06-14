@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="UTF-8">
+                <link rel="stylesheet" href="stylesheet.css">
+                 <script>
+function addEventTableRow()
+{
+        const table=document.getElementById("eventTable").getElementsByTagName('tbody')[0];
+        const newRow=document.createElement('tr');
+        newRow.innerHTML=`<td><input type="date"></td>
+                <td><input type="time"></td>x
+                <td><input type="text"></td>
+                <td><input type="checkbox"></td>
+                <td><button onclick="saveEventTableRow(this)">✔️</button></td>
+            `; 
+        table.appendChild(newRow);
+}
+function saveEventTableRow(button)
+{
+        const row=button.parentElement.parentElement;
+        const date=row.cells[0].querySelector('input').value;
+        const time=row.cells[1].querySelector('input').value;
+        const event=row.cells[2].querySelector('input').value;
+        const done=row.cells[3].querySelector('input').checked;
+
+        row.innerHTML=`
+        <td>${date}</td>
+        <td>${time}</td>
+        <td>${event}</td>
+        <td><input type="checkbox" ${done ? 'checked' : ''}></td>
+        <td><button onclick="editEventTableRow(this)">Edit</button></td>
+        `;
+}
+ function editEventTableRow(button){
+        const row = button.parentElement.parentElement;
+        const date = row.cells[0].innerText;
+        const time = row.cells[1].innerText;
+        const event = row.cells[2].innerText;
+        const done = row.cells[3].querySelector('input').checked;
+
+        row.innerHTML = `
+        <td><input type="date" value="${date}"></td>
+        <td><input type="time" value="${time}"></td>
+        <td><input type="text" value="${event}"></td>
+        <td><input type="checkbox" ${done ? 'checked' : ''}></td>
+        <td><button onclick="saveEventTableRow(this)">✔️</button></td>
+        `;
+}
+                 </script>
+
+        </head>
+        <body>
+                <table id="eventTable">
+                        <thead>
+                                <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Event</th>
+                                        <th>Done</th>
+                                        <th><button onclick="addEventTableRow()">Add +</button></th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                </table>
+        </body>
+</html>

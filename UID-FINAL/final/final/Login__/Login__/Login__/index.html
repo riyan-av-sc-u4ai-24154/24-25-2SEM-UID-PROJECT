@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ChronoTrack Website</title>
+<style>
+  /* Reset some default styles */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden; /* Prevent scrolling */
+  }
+  header {
+    background: #0052cc;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 3px 8px rgba(0, 82, 204, 0.35);
+  }
+  nav {
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+    border-bottom: 2px solid #0052cc;
+  }
+  nav button {
+    background: transparent;
+    border: none;
+    margin: 0 1.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    color: #0052cc;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  nav button::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    width: 90%;
+    height: 2px;
+    border-bottom: 2px dashed transparent;
+    transition: border-color 0.3s ease;
+  }
+  nav button:hover {
+    color: #002a80;
+  }
+  nav button:hover::after {
+    border-color: #0052cc;
+  }
+  main {
+    flex-grow: 1;
+    position: relative;
+    padding: 0; /* Remove padding to allow video to fill the area */
+    max-width: 960px;
+    margin: 0 auto;
+    overflow: hidden; /* Hide overflow */
+    min-height: 300px;
+  }
+  main video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1; /* Send video to the back */
+    transform: translate(-50%, -50%);
+  }
+  footer {
+    background: #002a80;
+    color: white;
+    text-align: center;
+    padding: 1rem 2rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 -3px 8px rgba(0, 42, 128, 0.4);
+  }
+#bgVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}
+ button#fitnessTrackBtn {
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+      transition: background 0.3s ease, transform 0.2s ease;
+      z-index: 10;
+      margin-top: 1rem;
+    }
+    button#fitnessTrackBtn:hover,
+    button#fitnessTrackBtn:focus {
+      background: linear-gradient(135deg, #3b82f6, #6ee7b7);
+      transform: translateY(-3px);
+      outline: none;
+    }
+button#FoodinfBtn {
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+      transition: background 0.3s ease, transform 0.2s ease;
+      z-index: 10;
+      margin-top: 1rem;
+    }
+    button#FoodinfBtn:hover,
+    button#FoodinfBtn:focus {
+      background: linear-gradient(135deg, #3b82f6, #6ee7b7);
+      transform: translateY(-3px);
+      outline: none;
+    }
+button#VideoBtn {
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+      transition: background 0.3s ease, transform 0.2s ease;
+      z-index: 10;
+      margin-top: 1rem;
+    }
+    button#VideoBtn:hover,
+    button#FoodinfBtn:focus {
+      background: linear-gradient(135deg, #3b82f6, #6ee7b7);
+      transform: translateY(-3px);
+      outline: none;
+    }
+button#YogaSteps {
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+      transition: background 0.3s ease, transform 0.2s ease;
+      z-index: 10;
+      margin-top: 1rem;
+    }
+    button#YogaSteps:hover,
+    button#FoodinfBtn:focus {
+      background: linear-gradient(135deg, #3b82f6, #6ee7b7);
+      transform: translateY(-3px);
+      outline: none;
+    }
+button#Donate {
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+      transition: background 0.3s ease, transform 0.2s ease;
+      z-index: 10;
+      margin-top: 1rem;
+    }
+    button#Donate:hover,
+    button#FoodinfBtn:focus {
+      background: linear-gradient(135deg, #3b82f6, #6ee7b7);
+      transform: translateY(-3px);
+      outline: none;
+    }
+button#suggest{
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+      transition: background 0.3s ease, transform 0.2s ease;
+      z-index: 10;
+      margin-top: 1rem;
+    }
+    button#suggest:hover,
+    button#FoodinfBtn:focus {
+      background: linear-gradient(135deg, #3b82f6, #6ee7b7);
+      transform: translateY(-3px);
+      outline: none;
+    }
+</style>
+</head>
+<body>
+  <header>Welcome to ChronoTrack Website</header>
+
+  <nav>
+    <button id="aboutBtn" type="button">About Us</button>
+    <button id="contactBtn" type="button">Contact Us</button>
+    <button id="logoutBtn" type="button">Log Out</button>
+  </nav>
+
+  <main>
+    <video autoplay muted loop id="bgVideo">
+      <source src="white-lines-on-blue-background.960x540.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+   <button id="fitnessTrackBtn" onclick="location.href='Fitness_Alert.html'">Fitness track</button><br>
+   <button id="FoodinfBtn" onclick="location.href='Food_info.html'">Know about Food</button><br>
+   <button id="VideoBtn" onclick="location.href='Videos.html'">Click for Video Tips</button><br>
+  <button id="YogaSteps" onclick="location.href='Yoga.html'">Click here for Start Doing Yoga </button><br> 
+   <button id="suggest" onclick="location.href='1.html'">Click here for  BMI suggestions </button><br>
+
+  <button id="Donate" onclick="location.href='Donate.html'">Click here to Donate us :) </button><br>
+  </main>
+
+  <footer>&copy; 2024 ChronoTrack. All rights reserved.</footer>
+
+<script>
+  document.getElementById('logoutBtn').addEventListener('click', function() {
+    // Redirect to login_page.html on logout button click
+    window.location.href = 'login_page.html';
+  });
+  document.getElementById('contactBtn').addEventListener('click', function() {
+    // Redirect to Contact.html on contact button click
+    window.location.href = 'Contact.html';
+  });
+  document.getElementById('aboutBtn').addEventListener('click', function() {
+    // Redirect to Contact.html on contact button click
+    window.location.href = 'About_us.html';
+  });
+</script>
+</body>
+</html>
+

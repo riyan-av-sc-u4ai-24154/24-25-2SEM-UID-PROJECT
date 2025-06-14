@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Food Benefits Info</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #fefefe;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  h1 {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+  .container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 25px;
+    flex: 2 1 600px;
+  }
+  .food-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgb(0 0 0 / 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .food-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgb(0 0 0 / 0.15);
+  }
+  .food-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+  }
+  .food-card .title {
+    padding: 12px 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #34495e;
+    text-align: center;
+  }
+  .info-section {
+    flex: 1 1 350px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.1);
+    padding: 20px;
+    margin-left: 30px;
+    max-width: 400px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+  .info-section h2 {
+    margin-top: 0;
+    color: #2980b9;
+  }
+  .info-section p {
+    line-height: 1.4;
+    color: #555;
+  }
+  .info-section .benefits {
+    margin-top: 15px;
+  }
+  .info-section .benefits h3 {
+    margin-bottom: 8px;
+    color: #27ae60;
+  }
+  @media (max-width: 900px) {
+    .container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .info-section {
+      margin-left: 0;
+      margin-top: 30px;
+      max-width: 90vw;
+      min-width: auto;
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>Explore Food Items & Their Benefits</h1>
+  <div class="container">
+    <div class="food-grid" id="foodGrid">
+      <!-- Food cards injected by JS -->
+    </div>
+    <div class="info-section" id="infoSection">
+      <h2>Click on a food item to see details</h2>
+      <p>Select an image from above to view its benefits and information here.</p>
+    </div>
+  </div>
+
+<script>
+  // Food data: image URLs, names, categories, and benefit info
+  const foods = [
+    {
+      name: "Basmati Rice",
+      category: "Rice",
+      img: "https://www.thespruceeats.com/thmb/dcr8sHq3QyEfm2DmmRTK4UZ2uiA=/5184x3456/filters:no_upscale():max_bytes(150000):strip_icc()/basmati-rice-in-a-bowl-with-a-spoon-519309138-7ca58970c0914bb9b117d43cb09d7dd8.jpg",
+      info: "Basmati rice is aromatic and has a low glycemic index, making it a healthier choice for sustained energy.",
+      benefits: [
+        "Rich in fiber and nutrients",
+        "Helps with digestion",
+        "Low in fat and cholesterol"
+      ]
+    },
+    {
+      name: "Jeera Rice",
+      category: "Rice",
+      img: "https://th.bing.com/th/id/OIP.tQ-WbSSYn3Knz1vXibtkCAHaLH?w=186&h=279&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+      info: "Jeera rice combines cumin seeds with rice, which adds flavor and aids digestion.",
+      benefits: [
+        "Cumin seeds reduce bloating",
+        "Boosts immunity",
+        "Rich in iron"
+      ]
+    },
+    {
+      name: "Butter Chicken",
+      category: "Indian Food",
+      img: "https://th.bing.com/th/id/OSK.c90df6fe135d1f2866deecf603c0dc12?w=164&h=123&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+      info: "Butter Chicken is a creamy and flavorful dish rich in protein and spices.",
+      benefits: [
+        "High protein content for muscle building",
+        "Contains anti-inflammatory spices",
+        "Good source of vitamins B6 and B12"
+      ]
+    },
+    {
+      name: "Dal Tadka",
+      category: "Indian Food",
+      img: "https://th.bing.com/th/id/OSK.cf34a0fff4e60b7e7835a14c6a2e7664?w=164&h=248&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+      info: "Dal Tadka is a seasoned lentil dish rich in protein and fiber.",
+      benefits: [
+        "Improves heart health",
+        "Good source of plant-based protein",
+        "Helps regulate blood sugar"
+      ]
+    },
+    {
+      name: "Masala Dosa",
+      category: "Indian Food",
+      img: "https://bing.com/th?id=OSK.33e711bc4e71a1c7d1a08666810c56b3",
+      info: "Masala Dosa is a fermented crepe filled with spicy potatoes, rich in vitamins and beneficial bacteria.",
+      benefits: [
+        "Aids digestion due to fermentation",
+        "Rich in carbohydrates for energy",
+        "Provides essential vitamins and minerals"
+      ]
+    },
+    {
+      name: "Thali Meal",
+      category: "Meals",
+      img: "https://th.bing.com/th/id/OSK.c606611adddd19319f8304bd924bdf13?w=197&h=118&c=7&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+      info: "A Thali meal offers a balanced combination of various dishes providing diverse nutrients.",
+      benefits: [
+        "Balanced proteins, carbs, and fats",
+        "Incorporates various vegetables and spices",
+        "Promotes overall health and wellness"
+      ]
+    },
+    {
+      name: "Chicken Biryani",
+      category: "Meals",
+      img: "https://th.bing.com/th/id/OSK.a77edaadad5e2d4a60ec0474583f451a?w=164&h=109&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+      info: "Chicken Biryani is a aromatic dish rich in protein and spices that boosts metabolism.",
+      benefits: [
+        "High in protein",
+        "Contains antioxidants from spices",
+        "Good for energy and stamina"
+      ]
+    },
+    {
+      name: "Vegetable Pulao",
+      category: "Rice",
+      img: "https://th.bing.com/th/id/OSK.1b2524d0ec8c51cc57bfe92d414f843c?w=164&h=164&rs=2&qlt=80&o=6&cdv=1&dpr=1.3&pid=16.1",
+      info: "Vegetable Pulao includes a variety of veggies making it rich in fiber and vitamins.",
+      benefits: [
+        "Rich in dietary fiber",
+        "Source of essential vitamins",
+        "Low in fat and calories"
+      ]
+    }
+  ];
+
+  // Elements
+  const foodGrid = document.getElementById('foodGrid');
+  const infoSection = document.getElementById('infoSection');
+
+  // Create food cards
+  foods.forEach((food, index) => {
+    const card = document.createElement('div');
+    card.className = 'food-card';
+    card.tabIndex = 0;
+    card.setAttribute('aria-label', `View information about ${food.name}`);
+    card.innerHTML = `
+      <img src="${food.img}" alt="${food.name}" />
+      <div class="title">${food.name}</div>
+    `;
+    card.addEventListener('click', () => {
+      showFoodInfo(food);
+    });
+    card.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showFoodInfo(food);
+      }
+    });
+    foodGrid.appendChild(card);
+  });
+
+  // Show info about clicked food
+  function showFoodInfo(food) {
+    let benefitsList = food.benefits.map(benefit => `<li>${benefit}</li>`).join('');
+    infoSection.innerHTML = `
+      <h2>${food.name}</h2>
+      <p>${food.info}</p>
+      <div class="benefits">
+        <h3>Benefits:</h3>
+        <ul>${benefitsList}</ul>
+      </div>
+    `;
+  }
+</script>
+</body>
+</html>
+

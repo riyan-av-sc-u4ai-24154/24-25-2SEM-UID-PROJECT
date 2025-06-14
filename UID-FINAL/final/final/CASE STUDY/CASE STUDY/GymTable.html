@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheet.css">
+    <script>
+        function addGymTableRow() {
+            const table = document.getElementById("GymTable").getElementsByTagName('tbody')[0];
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input min="0" type="number" placeholder="Sets"></td>
+                <td><input min="0" type="number" placeholder="Reps"></td>
+                <td><input  type="text" placeholder="Workout"></td>
+                <td><input min="0" type="number" placeholder="Duration"></td>
+                <td><input type="checkbox"></td>
+                <td><button onclick="saveGymTableRow(this)">✔️</button></td>
+            `;
+            table.appendChild(newRow);
+        }
+
+        function saveGymTableRow(button) {
+            const row = button.parentElement.parentElement;
+            const sets = row.cells[0].querySelector('input').value;
+            const reps = row.cells[1].querySelector('input').value;
+            const workout = row.cells[2].querySelector('input').value;
+            const duration = row.cells[3].querySelector('input').value;
+            const done = row.cells[4].querySelector('input').checked;
+
+            row.innerHTML = `
+                <td>${sets}</td>
+                <td>${reps}</td>
+                <td>${workout}</td>
+                <td>${duration}</td>
+                <td><input type="checkbox" ${done ? 'checked' : ''}></td>
+                <td><button onclick="editGymTableRow(this)">Edit</button></td>
+            `;
+        }
+
+        function editGymTableRow(button) {
+            const row = button.parentElement.parentElement;
+            const sets = row.cells[0].innerText;
+            const reps = row.cells[1].innerText;
+            const workout = row.cells[2].innerText;
+            const duration = row.cells[3].innerText;
+            const done = row.cells[4].querySelector('input').checked;
+
+            row.innerHTML = `
+                <td><input min="0" type="number" value="${sets}"></td>
+                <td><input min="0" type="number" value="${reps}"></td>
+                <td><input  type="text" value="${workout}"></td>
+                <td><input min="0" type="number" value="${duration}"></td>
+                <td><input type="checkbox" ${done ? 'checked' : ''}></td>
+                <td><button onclick="saveGymTableRow(this)">✔️</button></td>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <table id="GymTable">
+        <thead>
+            <tr>
+                <th>No Of Sets</th>
+                <th>No of Reps</th>
+                <th>Work Out Routine</th>
+                <th>Duration (sec)</th>
+                <th>Done</th>
+                <th><button onclick="addGymTableRow()">ADD +</button></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+</html>

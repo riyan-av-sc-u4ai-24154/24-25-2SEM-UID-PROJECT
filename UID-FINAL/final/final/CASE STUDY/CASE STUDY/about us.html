@@ -1,0 +1,55 @@
+<!DOCTYPE htm>
+<htmL>
+        <head>
+                 <title>CHRONO TRACK</title>
+                 <link rel="icon" type="image/png" href="white_on_black.png">
+                 <link rel="stylesheet" href="stylesheet-white.css">
+                 <title>ABOUT US</title>
+                 <script>
+function showPopup(name,roll,dept){
+        document.getElementById('popup-name').innerText=name;
+        document.getElementById('popup-roll').innerText=roll;
+        document.getElementById('popup-dept').innerText=dept;
+        document.getElementById('overlay').style.display='block';
+        document.getElementById('popup').style.display='block';
+}
+function closePopup(){
+        document.getElementById('overlay').style.display='none';
+        document.getElementById('popup').style.display='none';
+}
+                 </script>
+        </head>
+        <body>
+                <img id="csLogo" type="image/png" src="original.jpg">
+                <h1 id="PageTitle">ABOUT US</h1>
+                <div id="navbar">
+                        <a href="home page.html"><button class="navbarButtons">HOME</button></a>
+                        <a href="schedule.html"><button class ="navbarButtons">SCHEDULE</button></a>
+                        <a href="about us.html"><button class="navbarButtons">ABOUT US</button></a>
+                        <a href="about this project.html"><button class="navbarButtons">ABOUT THIS PROJECT</button></a>
+                        <a href="login.html"><button class="navbarButtons">LOGIN</button></a>
+                </div>
+                <div id="spacer"></div>
+                <div class="showTeamMates">
+                <div class="team-container">
+                        <div class="team-member" onclick="showPopup('RIYAN SUNILDETH','AV.SC.U4AIE24154','AV24UAIEB')">RIYAN </div>
+                        <div class="team-member" onclick="showPopup('RAHUL PENUGONDA','AV.SC.U4AIE24151','AV24UAIEB')">RAHUL</div>
+                        </div>
+                <div class="team-container">
+                        <div class="team-member" onclick="showPopup('MUDDINENI JEEVAN','AV.SC.U4AIE24141','AV24UAIEB')">JEEVAN</div>
+                        </div>
+                <div class="team-container">
+                        <div class="team-member" onclick="showPopup('A MUKHESH VEERA SAI','AV.SC.U4AIE24103','AV24UAIEB')">MUKHESH</div>
+                        <div class="team-member" onclick="showPopup('Ram Teja','AV.SC.U4AIE24129','AV24UAIEB')">RAM TEJA</div>
+                        </div>
+                </div>
+                <div class="overlay" id="overlay">
+                <div class="popup" id="popup">
+                        <h1 id="popup-name"></h1>
+                        <p>Roll No: <span id="popup-roll"></span></p>
+                        <p>Department: <span id="popup-dept"></span></p>
+                        <button onclick="closePopup()">CLOSE</button>
+                </div>
+        </body>
+</htmL>
+

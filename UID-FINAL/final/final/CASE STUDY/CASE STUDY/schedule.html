@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SCHEDULE PAGE</title>
+    <link rel="icon" type="image/png" href="white_on_black.png">
+    <link rel="stylesheet" href="stylesheet-white.css">
+
+    <script>
+        
+        function showEventTable() {
+            document.getElementById("dispTable").src = "EventTable.html";
+        }
+
+        function showGymTable() {
+            document.getElementById("dispTable").src = "GymTable.html";
+        }
+
+        function showDailyTable() {
+            document.getElementById("dispTable").src = "DailyTable.html";
+        }
+
+        function addEventTableRow() {
+            const table = document.getElementById("eventTable").getElementsByTagName('tbody')[0];
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="date"></td>
+                <td><input type="time"></td>
+                <td><input type="text" placeholder="Event name"></td>
+                <td><input type="checkbox"></td>
+                <td><button onclick="saveEventTableRow(this)">✔️</button></td>
+            `;
+            table.appendChild(newRow);
+        }
+
+        function saveEventTableRow(button) {
+            const row = button.parentElement.parentElement;
+            const date = row.cells[0].querySelector('input').value;
+            const time = row.cells[1].querySelector('input').value;
+            const event = row.cells[2].querySelector('input').value;
+            const done = row.cells[3].querySelector('input').checked;
+
+            row.innerHTML = `
+                <td>${date}</td>
+                <td>${time}</td>
+                <td>${event}</td>
+                <td><input type="checkbox" ${done ? 'checked' : ''}></td>
+                <td><button onclick="editEventTableRow(this)">Edit</button></td>
+            `;
+        }
+
+        function editEventTableRow(button) {
+            const row = button.parentElement.parentElement;
+            const date = row.cells[0].innerText;
+            const time = row.cells[1].innerText;
+            const event = row.cells[2].innerText;
+            const done = row.cells[3].querySelector('input').checked;
+
+            row.innerHTML = `
+                <td><input type="date" value="${date}"></td>
+                <td><input type="time" value="${time}"></td>
+                <td><input type="text" value="${event}"></td>
+                <td><input type="checkbox" ${done ? 'checked' : ''}></td>
+                <td><button onclick="saveEventTableRow(this)">✔️</button></td>
+            `;
+        }
+
+        function addGymTableRow() {
+            const table = document.getElementById("GymTable").getElementsByTagName('tbody')[0];
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="number" placeholder="Sets"></td>
+                <td><input type="number" placeholder="Reps"></td>
+                <td><input type="text" placeholder="Workout"></td>
+                <td><input type="number" placeholder="Duration"></td>
+                <td><input type="checkbox"></td>
+                <td><button onclick="saveGymTableRow(this)">✔️</button></td>
+            `;
+            table.appendChild(newRow);
+        }
+
+        function saveGymTableRow(button) {
+            const row = button.parentElement.parentElement;
+            const sets = row.cells[0].querySelector('input').value;
+            const reps = row.cells[1].querySelector('input').value;
+            const workout = row.cells[2].querySelector('input').value;
+            const duration = row.cells[3].querySelector('input').value;
+            const done = row.cells[4].querySelector('input').checked;
+
+            row.innerHTML = `
+                <td>${sets}</td>
+                <td>${reps}</td>
+                <td>${workout}</td>
+                <td>${duration}</td>
+                <td><input type="checkbox" ${done ? 'checked' : ''}></td>
+                <td><button onclick="editGymTableRow(this)">Edit</button></td>
+            `;
+        }
+
+        function editGymTableRow(button) {
+            const row = button.parentElement.parentElement;
+            const sets = row.cells[0].innerText;
+            const reps = row.cells[1].innerText;
+            const workout = row.cells[2].innerText;
+            const duration = row.cells[3].innerText;
+            const done = row.cells[4].querySelector('input').checked;
+
+            row.innerHTML = `
+                <td><input type="number" value="${sets}"></td>
+                <td><input type="number" value="${reps}"></td>
+                <td><input type="text" value="${workout}"></td>
+                <td><input type="number" value="${duration}"></td>
+                <td><input type="checkbox" ${done ? 'checked' : ''}></td>
+                <td><button onclick="saveGymTableRow(this)">✔️</button></td>
+            `;
+        }
+    </script>
+</head>
+<body id="homepageBody">
+    <img id="csLogo" type="image/png" src="original.jpg">
+    <h1 id="PageTitle">SCHEDULE</h1>
+    <div id="navbar">
+        <a href="home page.html"><button class="navbarButtons">HOME</button></a>
+        <a href="schedule.html"><button class="navbarButtons">SCHEDULE</button></a>
+        <a href="about us.html"><button class="navbarButtons">ABOUT US</button></a>
+        <a href="about this project.html"><button class="navbarButtons">ABOUT THIS PROJECT</button></a>
+        <a href="login.html"><button class="navbarButtons">LOGIN</button></a>
+    </div>
+    <div id="spacer"></div>
+    <div id="tablList">
+        <button onclick="showEventTable()">EVENT PLANNER</button>
+        <button onclick="showGymTable()">GYM PLANNER</button>
+        <button onclick="showDailyTable()">DAILY PLANNER</button>
+    </div>
+    <div id="spacer"></div>
+    <div id="showTable">
+        <iframe id="dispTable" style="width:100%; height:600px; border:none;"></iframe>
+    </div>
+</body>
+</html>

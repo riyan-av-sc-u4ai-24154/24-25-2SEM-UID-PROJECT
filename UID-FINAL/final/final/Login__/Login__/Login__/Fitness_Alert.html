@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Your Fitness Goals</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e8f4f8;
+      margin: 40px;
+    }
+    .goals-container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label, input {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+    }
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 10px;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+    .goal-inputs {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .goal-inputs input {
+      flex: 1;
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .goal-inputs button {
+      padding: 8px 15px;
+      font-size: 14px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .goal-inputs button:hover {
+      background-color: #218838;
+    }
+    button.save-goals {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button.save-goals:hover {
+      background-color: #218838;
+    }
+    .results {
+      margin-top: 20px;
+      background-color: #f0f0f0;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .edit-btn {
+      margin-top: 10px;
+      background-color: #007bff;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .edit-btn:hover {
+      background-color: #0069d9;
+    }
+    #add-another-btn {
+      margin-top: 10px;
+      background-color: #ffc107;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      color: black;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      display: none;
+    }
+    #add-another-btn:hover {
+      background-color: #e0a800;
+    }
+    #time-left-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #d1ecf1;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #0c5460;
+    }
+    #timestamp-container {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="goals-container">
+    <h1>Select Your Fitness Goals</h1>
+
+    <label for="goal-hours">Hours:</label>
+    <input type="number" id="goal-hours" min="0" placeholder="Enter hours" />
+
+    <label for="goal-minutes">Minutes:</label>
+    <input type="number" id="goal-minutes" min="0" max="59" placeholder="Enter minutes" />
+
+    <label for="goal-seconds">Seconds:</label>
+    <input type="number" id="goal-seconds" min="0" max="59" placeholder="Enter seconds" />
+
+    <div class="checkbox-group" id="goal-list">
+      <label><input type="checkbox" value="🏃‍♂ Run 5 km" />🏃‍♂ Run 5 km</label>
+      <label><input type="checkbox" value="🚴‍♀ Cycle 10 km" />🚴‍♀ Cycle 10 km</label>
+      <label><input type="checkbox" value="🏋‍♀ Strength Training " />🏋‍♀ Strength Training </label>
+      <label><input type="checkbox" value="🧘‍♀ Meditation " />🧘‍♀ Meditation </label>
+      <label><input type="checkbox" value="🤸 Stretching " />🤸 Stretching </label>
+    </div>
+
+    <div class="goal-inputs" id="goal-inputs">
+      <input type="text" id="new-goal" placeholder="Add new goal (e.g. 🏊 Swim 1 km)" />
+      <button type="button" id="add-goal-btn">Add</button>
+    </div>
+
+    <button class="save-goals" onclick="showSelectedGoals()">Save Goals</button>
+
+    <div class="results" id="selected-goals"></div>
+
+    <button class="edit-btn" onclick="editGoals()" id="edit-button" style="display: none;">Edit Goals</button>
+
+    <button id="add-another-btn" type="button" onclick="showAddInputs()">Add Another Goal</button>
+
+    <div id="time-left-container">
+      Time Left: <span id="time-left">N/A</span>
+    </div>
+
+  <script>
+    const addGoalBtn = document.getElementById('add-goal-btn');
+    const newGoalInput = document.getElementById('new-goal');
+    const goalInputsDiv = document.getElementById('goal-inputs');
+    const addAnotherBtn = document.getElementById('add-another-btn');
+    const selectedGoalsDiv = document.getElementById('selected-goals');
+    const editBtn = document.getElementById('edit-button');
+    const timeLeftSpan = document.getElementById('time-left');
+    const goalHoursInput = document.getElementById('goal-hours');
+    const goalMinutesInput = document.getElementById('goal-minutes');
+    const goalSecondsInput = document.getElementById('goal-seconds');
+
+    let timerInterval; // Variable to hold the timer interval
+
+    addGoalBtn.addEventListener('click', addGoal);
+    goalHoursInput.addEventListener('change', updateTimeLeft);
+    goalMinutesInput.addEventListener('change', updateTimeLeft);
+    goalSecondsInput.addEventListener('change', updateTimeLeft);
+
+    function addGoal() {
+      const goalText = newGoalInput.value.trim();
+      if (!goalText) {
+        alert("Please enter a goal before adding.");
+        return;
+      }
+      const goalList = document.getElementById('goal-list');
+      const label = document.createElement('label');
+      label.innerHTML = `<input type="checkbox" value="${goalText}" /> ${goalText}`;
+      goalList.appendChild(label);
+      newGoalInput.value = '';
+      document.querySelectorAll('#goal-list input').forEach(input => input.disabled = false);
+      selectedGoalsDiv.innerHTML = '';
+      editBtn.style.display = 'none';
+      addAnotherBtn.style.display = 'none';
+      goalInputsDiv.style.display = 'flex';
+    }
+
+    function showSelectedGoals() {
+      const checkboxes = document.querySelectorAll('#goal-list input[type="checkbox"]:checked');
+      const hours = parseInt(goalHoursInput.value) || 0;
+      const minutes = parseInt(goalMinutesInput.value) || 0;
+      const seconds = parseInt(goalSecondsInput.value) || 0;
+      const totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
+
+      if (checkboxes.length === 0) {
+        selectedGoalsDiv.innerHTML = "<p>Please select at least one goal.</p>";
+        editBtn.style.display = "none";
+        addAnotherBtn.style.display = 'none';
+        return;
+      }
+      let selected = `<strong>Selected Goals for ${totalSeconds} seconds:</strong><ul>`;
+      checkboxes.forEach(box => {
+        selected += `<li>${box.value}</li>`;
+      });
+      selected += "</ul>";
+      selectedGoalsDiv.innerHTML = selected;
+      editBtn.style.display = "block";
+      addAnotherBtn.style.display = "block";
+      document.querySelectorAll('#goal-list input').forEach(input => input.disabled = true);
+      goalInputsDiv.style.display = 'none';
+      startTimer(totalSeconds);
+    }
+
+    function editGoals() {
+      clearInterval(timerInterval); // Clear the timer when editing goals
+      document.querySelectorAll('#goal-list input').forEach(input => input.disabled = false);
+      selectedGoalsDiv.innerHTML = '';
+      editBtn.style.display = 'none';
+      addAnotherBtn.style.display = 'none';
+      goalInputsDiv.style.display = 'flex';
+      timeLeftSpan.textContent = 'N/A';
+    }
+
+    function showAddInputs() {
+      clearInterval(timerInterval); // Clear the timer when adding new inputs
+      goalInputsDiv.style.display = 'flex';
+      addAnotherBtn.style.display = 'none';
+      document.querySelectorAll('#goal-list input').forEach(input => input.disabled = false);
+      selectedGoalsDiv.innerHTML = '';
+      editBtn.style.display = 'none';
+      timeLeftSpan.textContent = 'N/A';
+    }
+
+    function startTimer(seconds) {
+      let timeLeft = seconds;
+      timeLeftSpan.textContent = `${timeLeft}s`;
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timeLeftSpan.textContent = `${timeLeft}s`;
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert("Time is up!");
+          timeLeftSpan.textContent = 'N/A';
+        }
+      }, 1000);
+    }
+
+    const experimentTimestampSpan = document.getElementById('experiment-timestamp');
+    const now = new Date();
+    experimentTimestampSpan.textContent = now.toLocaleString();
+  </script>
+</body>
+</html>

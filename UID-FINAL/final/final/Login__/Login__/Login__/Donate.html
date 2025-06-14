@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Donate Us - ChronoTrack</title>
+<style>
+  :root {
+    --primary-color: #4a90e2;
+    --background-color: #f5f7fa;
+    --text-color: #333;
+    --box-border-color: #4a90e2;
+    --box-shadow-color: rgba(74, 144, 226, 0.3);
+  }
+
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, pink,yellow); /* Beautiful gradient background */
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: flex-start; /* Align items to the top */
+  }
+
+  h1 {
+    margin-top: 20px; /* Add some space at the top */
+    color: white; /* Change text color for better visibility */
+    text-align: center;
+  }
+
+  .container {
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px var(--box-shadow-color);
+    margin-top: 20px; /* Add space between the heading and container */
+  }
+
+  .qr-box {
+    width: 100%;
+    height: 260px;
+    border: 3px solid var(--box-border-color);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .qr-box:hover {
+    box-shadow: 0 0 20px var(--box-border-color);
+  }
+
+  .qr-box img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .message {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    opacity: 0;
+    animation: fadeInText 1.5s ease forwards;
+    animation-delay: 0.4s;
+    user-select: none;
+  }
+
+  @keyframes fadeInText {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .qr-box {
+      height: 220px;
+    }
+    .container {
+      max-width: 320px;
+      padding: 15px;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>Donate us if needed :)</h1>
+  <div class="container" role="main">
+    <div class="qr-box" tabindex="0" aria-label="QR code for donations">
+      <!-- Placeholder for QR code image source, replace src below -->
+      <img src="C:\Users\Rahul\Desktop\UID\phonepe.jpg" alt="Donate QR Code Placeholder" />
+    </div>
+    <div class="message" aria-live="polite">
+      Thanks for visiting our ChronoTrack site. Hope you liked it very well. Please donate to our community so that we could be much more motivated by that, and also helpful in updating the website. Thank you.
+    </div>
+  </div>
+</body>
+</html>

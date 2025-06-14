@@ -1,0 +1,51 @@
+<!DOCTYPE htm>
+<htmL>
+        <head>
+                 <title>CHRONO TRACK</title>
+                 <link rel="icon" type="image/png" href="white_on_black.png">
+                 <link rel="stylesheet" href="stylesheet-white.css">
+                 <script>
+window.onload=function() {
+        if(document.body.id="homepageBody"){
+             const htmlfiles = [
+                "hp1.html", "hp2.html", "hp3.html",
+                "hp4.html", "hp5.html", "hp6.html", "hp7.html",
+                "hp8.html", "hp9.html"];
+                let index=0;
+                function homepageLoop(){
+                        const homepageview=document.getElementById("homepageViewer");
+                        if(homepageview){
+                                if(index<=8){
+                                        homepageview.src=htmlfiles[index];
+                                        index=index+1;
+                                }
+                                else{
+                                        index=0;
+                                        homepageview.src=htmlfiles[index];
+                                }
+                        }   
+                }
+                const homepageview=document.getElementById("homepageViewer");
+                if(homepageview){
+                        homepageLoop();
+                        setInterval(homepageLoop,5000);
+                }
+        }
+}
+                 </script>
+        </head>
+        <body id="homepageBody">
+                <img id="csLogo" type="image/png" src="original.jpg">
+                <h1 id="PageTitle">HOME PAGE</h1>
+                <div id="navbar">
+                        <a href="home page.html"><button class="navbarButtons">HOME</button></a>
+                        <a href="schedule.html"><button class ="navbarButtons">SCHEDULE</button></a>
+                        <a href="about us.html"><button class="navbarButtons">ABOUT US</button></a>
+                        <a href="about this project.html"><button class="navbarButtons">ABOUT THIS PROJECT</button></a>
+                        <a href="login.html"><button class="navbarButtons">LOGIN</button></a>
+                </div>
+                <div id="homepageIMGdiv">
+                        <iframe id="homepageViewer"></iframe>
+                </div>
+        </body>
+</htmL>

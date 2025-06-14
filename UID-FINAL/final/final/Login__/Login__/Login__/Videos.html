@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>YouTube Videos Stacked with Spacing</title>
+<style>
+  :root {
+    --primary-color: #ff3d00;
+    --background-color: #121212;
+    --card-background: #1e1e1e;
+    --text-color: #eee;
+    --hover-scale: 1.05;
+    --box-shadow-hover: 0 10px 30px rgba(255, 61, 0, 0.6);
+    --box-shadow-layer: 0 4px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--background-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  header {
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: linear-gradient(45deg, #ff3d0077, #ff704d77);
+    color: white;
+    user-select: none;
+    z-index: 10;
+  }
+
+  main {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .video-card {
+    background-color: var(--card-background);
+    width: 400px;
+    box-shadow: var(--box-shadow-layer);
+    overflow: hidden;
+    border-radius: 0;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 40px; /* vertical distance between cards */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-card:first-child {
+    margin-top: 0; /* no margin on first card */
+  }
+
+  .video-card:hover {
+    transform: scale(var(--hover-scale)) translateY(-12px);
+    box-shadow: var(--box-shadow-hover);
+    z-index: 5;
+  }
+
+  iframe {
+    width: 100%;
+    height: 240px; /* bigger height for larger rectangular shape */
+    border: none;
+    flex-shrink: 0;
+    display: block;
+  }
+
+  .video-info {
+    padding: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    text-align: center;
+    background-color: var(--card-background);
+    border-top: 1px solid #333;
+    flex-grow: 1;
+  }
+
+  @media (max-width: 700px) {
+    main {
+      max-width: 90vw;
+      padding: 1rem;
+    }
+    .video-card {
+      width: 100%;
+    }
+    iframe {
+      height: 220px;
+    }
+  }
+</style>
+</head>
+<body>
+<header>Welcome to Video Corner</header>
+<main>
+  <div class="video-card" tabindex="0" style="z-index:4;">
+    <iframe src="What Happens to Your Body When You Start Exercising_.mp4" title="Video 1" allowfullscreen></iframe>
+    <div class="video-info">Fitness Benefits</div>
+  </div>
+  <div class="video-card" tabindex="0" style="z-index:3;">
+    <iframe src="How to manage your time more effectively (according to machines) - Brian Christian.mp4" title="Video 2" allowfullscreen></iframe>
+    <div class="video-info">Time Management</div>
+  </div>
+  <div class="video-card" tabindex="0" style="z-index:2;">
+    <iframe src="How the food you eat affects your brain - Mia Nacamulli.mp4" title="Video 3" allowfullscreen></iframe>
+    <div class="video-info">Food Benefits</div>
+  </div>
+  <div class="video-card" tabindex="0" style="z-index:1;">
+    <iframe src="When is the best time to exercise_ – BBC REEL.mp4" title="Video 4" allowfullscreen></iframe>
+    <div class="video-info">Exercise Tips</div>
+  </div>
+</main>
+<script>
+  const cards = document.querySelectorAll('.video-card');
+  cards.forEach(card => {
+    card.addEventListener('focus', () => {
+      card.style.transform = 'scale(var(--hover-scale)) translateY(-12px)';
+      card.style.boxShadow = 'var(--box-shadow-hover)';
+      card.style.zIndex = '10';
+    });
+    card.addEventListener('blur', () => {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+      card.style.zIndex = card.getAttribute('style').match(/z-index:\s*(\d+)/)?.[1] || '';
+    });
+  });
+</script>
+</body>
+</html>

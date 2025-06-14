@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Registration</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(7.3px);
+    -webkit-backdrop-filter: blur(7.3px);
+    max-width: 360px;
+    width: 90%;
+    text-align: center;
+  }
+  h2 {
+    margin-bottom: 24px;
+    font-weight: 700;
+  }
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0 20px 0;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  button {
+    background-color: #5a5af3;
+    border: none;
+    color: white;
+    padding: 14px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  button:hover {
+    background-color: #4141d5;
+  }
+  .link-btn {
+    color: #eef0f3;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .message {
+    margin-bottom: 15px;
+    height: 18px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Register</h2>
+    <div class="message" id="message"></div>
+    <input type="text" id="username" placeholder="Username" autocomplete="off" />
+    <input type="password" id="password" placeholder="Password" autocomplete="off" />
+    <button id="registerBtn">Register</button>
+    <button id="signInBtn">Sign In</button>
+  </div>
+
+<script>
+  const registerBtn = document.getElementById('registerBtn');
+  const signInBtn = document.getElementById('signInBtn');
+  const messageDiv = document.getElementById('message');
+
+  registerBtn.addEventListener('click', () => {
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!username || !password) {
+      messageDiv.textContent = 'Please enter both username and password.';
+      messageDiv.style.color = '#ff6b6b';
+      return;
+    }
+
+    // Store credentials in localStorage (basic for demo purposes)
+    localStorage.setItem('registeredUsername', username);
+    localStorage.setItem('registeredPassword', password);
+
+    messageDiv.textContent = 'Registration successful! You can now Sign In.';
+    messageDiv.style.color = '#90ee90';
+
+    // Clear inputs
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+  });
+
+  signInBtn.addEventListener('click', () => {
+    // Redirect to login_page.html
+    window.location.href = 'login_page.html';
+  });
+</script>
+</body>
+</html>
+

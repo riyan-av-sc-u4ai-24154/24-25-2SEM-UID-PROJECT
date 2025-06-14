@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fitness Suggestions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+    }
+    .suggestions-container {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label, input, button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    #suggestion-result {
+      margin-top: 15px;
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="suggestions-container">
+    <h1>Fitness Suggestions</h1>
+    <label for="height">Height (cm):</label>
+    <input type="number" id="height" placeholder="e.g., 170" />
+
+    <label for="weight">Weight (kg):</label>
+    <input type="number" id="weight" placeholder="e.g., 65" />
+
+    <button onclick="generateSuggestions()">Get Suggestions</button>
+
+    <div id="suggestion-result"></div>
+  </div>
+
+  <script>
+    function generateSuggestions() {
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      const resultDiv = document.getElementById('suggestion-result');
+
+      if (!height || !weight || height <= 0 || weight <= 0) {
+        resultDiv.innerHTML = "<p>Please enter valid height and weight.</p>";
+        return;
+      }
+
+      const heightInMeters = height / 100;
+      const bmi = weight / (heightInMeters * heightInMeters);
+      let message = `<p>Your BMI is ${bmi.toFixed(1)}.</p>`;
+
+      if (bmi < 18.5) {
+        message += "<p>You're underweight. Consider strength training and a calorie-rich, balanced diet.</p>";
+      } else if (bmi >= 18.5 && bmi < 24.9) {
+        message += "<p>You're in a healthy range. Continue with a balanced workout plan: cardio, strength, and flexibility.</p>";
+      } else if (bmi >= 25 && bmi < 29.9) {
+        message += "<p>You're overweight. Focus on cardio workouts and maintaining a calorie deficit.</p>";
+      } else {
+        message += "<p>You're in the obese range. Start with low-impact activities like walking or swimming and consult a fitness professional.</p>";
+      }
+
+      resultDiv.innerHTML = message;
+    }
+  </script>
+</body>
+</html>

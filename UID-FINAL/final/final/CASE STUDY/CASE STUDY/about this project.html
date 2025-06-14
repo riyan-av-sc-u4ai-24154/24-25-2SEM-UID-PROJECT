@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>ABOUT THIS PROJECT</title>
+                <link rel="icon" type="image/png" href="white_on_black.png">
+                <link rel="stylesheet" href="stylesheet-white.css">
+                <script>
+function openPopup(topic){
+        const content={
+                description: `We have developed a time management app to help people stay organized and boost their productivity. Whether you're a busy student or a working professional, this app will make it easier to plan your day, stay on top of tasks, and track your progress.\n\nKey Features:\n✔ Easy Scheduling – Quickly add and organize tasks with a clean, intuitive interface.\n✔ Smart Prioritization – Highlight important tasks to focus on what matters most.\n✔ Progress Tracking – Visualize how you spend your time and stay motivated.\n✔ Custom Reminders – Never miss a deadline with timely alerts.\n✔ Task Categories – Sort work, study, or personal tasks for better clarity.\n\nWhy It Matters:\nProcrastination and poor time management can make even simple tasks feel overwhelming. This app is designed to simplify daily planning, helping users work smarter, reduce stress, and achieve their goals more efficiently.`,
+                pros: `✔ Improved productivity\n✔ Clear organization\n✔ Less stress\n✔ Time visualization\n✔ Goal consistency\n✔ User empowerment`,
+                cons:`✘ Risk of over-dependence\n✘ No data persistence due to lack of back-end\n✘ No privacy or security features\n✘ All data lost on reload`,
+                futureUpdates:`✔ Add a secure back-end to save user data\n✔ Improve privacy and security\n✔ Integrate AI for smart planning\n✔ Mobile responsiveness and notifications`
+            };       
+        document.getElementById('popupContent').innerText=content[topic];
+        document.getElementById('abtOverlay').style.display='flex';
+}
+function closePopup(){
+        document.getElementById('abtOverlay').style.display='none';
+}
+                </script>
+        </head>
+        <body>
+                <img id="csLogo" type="image/png" src="original.jpg">
+                <h1 id="PageTitle">ABOUT THIS PROJECT</h1>
+                <div id="navbar">
+                        <a href="home page.html"><button class="navbarButtons">HOME</button></a>
+                        <a href="schedule.html"><button class ="navbarButtons">SCHEDULE</button></a>
+                        <a href="about us.html"><button class="navbarButtons">ABOUT US</button></a>
+                        <a href="about this project.html"><button class="navbarButtons">ABOUT THIS PROJECT</button></a>
+                        <a href="login.html"><button class="navbarButtons">LOGIN</button></a>
+                </div>
+                <div id="spacer"></div>
+                <div class="showabt">
+                        <div class="abtContainer">
+                                <div class="abt" onclick="openPopup('description')">Description</div>
+                                <div class="abt" onclick="openPopup('pros')">Pros</div>
+                        </div>
+                        <div class="abtContainer">
+                                <div class="abt" onclick="openPopup('cons')">Cons</div>
+                                <div class="abt" onclick="openPopup('futureUpdates')">Future Updates</div>
+                        </div>
+                        
+                        <div class="abtOverlay" id="abtOverlay">
+                                <div class="popupabt">
+                                        <p><span id="popupContent"></span></p>
+                                        <button onclick="closePopup()">CLOSE</button>
+                                </div>
+                        </div>
+                </div>
+        </body>
+</html>
